@@ -1,0 +1,25 @@
+.rod {
+    background-color: red;
+    width: 100%;
+    height: 20px;
+}
+
+.gronn {
+    background-color: green;
+    width: 100%;
+    height: 20px;
+}
+
+.svar {
+    font-size: 40px;
+    text-align: center;
+}
+
+.overskrift {
+    text-align: center;
+    font-size: 30px;
+}
+
+.box {
+    text-align: center;
+}

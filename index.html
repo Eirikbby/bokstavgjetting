@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p class="overskrift" id="Spill">Gjett ordet!</p>
+
+<p class="gronn" id="1"></p>
+<p class="gronn" id="2"></p>
+<p class="gronn" id="3"></p>
+<p class="gronn" id="4"></p>
+<p class="gronn" id="5"></p>
+
+<p class="svar" id="antallriktige"></p> <br>
+
+<div class="box">
+    <input type="text" id="textbox">
+    <button>Gjett</button>
+    <p id="gjettabokstaver">Antall gjettede bokstaver er: 0</p>
+    <p id="losningsord">Antall bokstaver i løsningsordet er:</p>
+    <p id="liste"></p>
+</div>
+
+<script>
+
+    const losningord = ["b", "e", "r", "g", "e", "n"];
+    let gjettedeBokstaver = [];
+    let riktigeBokstaver = ["_", "_", "_", "_", "_", "_"];
+
+    let textbox = document.querySelector("#textbox");
+    let knapp = document.querySelector("button");
+    let antallFeil = 0;
+
+    knapp.addEventListener("click", gjettaBokstaver);
+    knapp.addEventListener("click", riktigBokstaver);
+    knapp.addEventListener("click", sjekkAntallFeil);
+    knapp.addEventListener("click", sjekkRiktigeSvar);
+
+    document.getElementById("antallriktige").innerHTML = riktigeBokstaver.join(" ");
+    document.getElementById("losningsord").innerHTML = "Antall bokstaver i løsningsordet er: " + losningord.length;
+
+    function sjekkRiktigeSvar() {
+        document.getElementById("antallriktige").innerHTML = riktigeBokstaver.join(" ");
+        if (JSON.stringify(losningord) === JSON.stringify(riktigeBokstaver)) {
+            document.getElementById("Spill").innerHTML = "Du har vunnet!";
+        }
+    }
+
+    function gjettaBokstaver() {
+        let skrevetbokstav = textbox.value;
+        gjettedeBokstaver.push(skrevetbokstav);
+        document.getElementById("gjettabokstaver").innerHTML = "Antall gjettede bokstaver er: " + gjettedeBokstaver.length
+        document.getElementById("liste").innerHTML = gjettedeBokstaver.sort();
+    }
+
+    function riktigBokstaver() {
+        let skrevetbokstav = textbox.value;
+
+        for(let i = 0; i < losningord.length; i++)
+        {
+            if (skrevetbokstav === losningord[i]) {
+                riktigeBokstaver[i] = skrevetbokstav;
+                antallFeil = antallFeil - 5;
+            }
+            else if (skrevetbokstav !== losningord[i]) {
+                antallFeil = antallFeil + 1;
+            }
+        }
+    }
+
+    function sjekkAntallFeil() {
+        if (antallFeil === 6) {
+            document.getElementById("1").classList.remove("gronn");
+            document.getElementById("1").classList.add("rod");
+        }
+        if (antallFeil === 12) {
+            document.getElementById("2").classList.remove("gronn");
+            document.getElementById("2").classList.add("rod");
+        }
+        if (antallFeil === 18) {
+            document.getElementById("3").classList.remove("gronn");
+            document.getElementById("3").classList.add("rod");
+        }
+        if (antallFeil === 24) {
+            document.getElementById("4").classList.remove("gronn");
+            document.getElementById("4").classList.add("rod");
+        }
+        if (antallFeil === 30) {
+            document.getElementById("5").classList.remove("gronn");
+            document.getElementById("5").classList.add("rod");
+            document.getElementById("Spill").innerHTML = "Du har tapt!";
+        }
+    }
+
+</script>
+
+</body>
+</html>
